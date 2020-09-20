@@ -93,8 +93,9 @@ export default {
       const params = { ...this.user }
       try {
         const { data } = await login(params)
-        this.$store.commit('setUser', data)
         this.$toast.success('登陆成功')
+        this.$store.commit('setUser', data)
+        this.$router.back()
       } catch (err) {
         this.$toast.fail('登陆失败, 手机号或验证码错误')
       }

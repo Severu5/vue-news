@@ -1,11 +1,9 @@
+import { USER_KEY } from '@/utils/constants'
+import { getItem, setItem } from '@/utils/storage'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { getItem, setItem } from '@/utils/storage'
-
 Vue.use(Vuex)
-
-const USER_KEY = 'news_user'
 
 export default new Vuex.Store({
   state: {
@@ -13,7 +11,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser(state, user) {
-      state.user = { ...user }
+      state.user = user
       setItem(USER_KEY, state.user)
     }
   },
