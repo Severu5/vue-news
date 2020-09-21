@@ -100,8 +100,7 @@ export default {
 
       })
     }
-  },
-  components: {}
+  }
 }
 </script>
 
