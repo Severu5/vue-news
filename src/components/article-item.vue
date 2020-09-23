@@ -1,5 +1,8 @@
 <template>
-  <van-cell class="article-item">
+  <van-cell
+    class="article-item"
+    :to="{ name: 'article', params: { articleId: article.art_id}}"
+  >
     <div
       slot="title"
       class="title van-multi-ellipsis--l3"
@@ -12,8 +15,8 @@
         <van-image
           class="cover-wrap-item"
           fit="cover"
-          v-for="img in article.cover.images"
-          :key="img"
+          v-for="(img, index) in article.cover.images"
+          :key="index"
           :src="img"
         />
       </div>

@@ -1,5 +1,8 @@
 <template>
-  <div class="article_list">
+  <div
+    class="article_list"
+    ref="article-list"
+  >
     <van-pull-refresh
       v-model="isPullDownLoading"
       :success-text="refreshSuccessText"
@@ -13,8 +16,8 @@
         @load="onLoad"
       >
         <ArticleItem
-          v-for="article in articleList"
-          :key="article.art_id"
+          v-for="(article, index) in articleList"
+          :key="index"
           :article="article"
         />
       </van-list>
@@ -22,8 +25,9 @@
   </div>
 </template>
 <script>
-import { getArticle } from '@/api/article'
+import { getArticleList } from '@/api/article'
 import ArticleItem from '@/components/article-item'
+import { debounce } from 'lodash'
 export default {
   name: 'ArticleList',
   props: {
@@ -39,8 +43,19 @@ export default {
       finished: false,
       timestamp: null,
       refreshSuccessText: '',
-      isPullDownLoading: false
+      isPullDownLoading: false,
+      scrollTop: 0,
+      articleListRef: null
     }
+  },
+  mounted () {
+    this.articleListRef = this.$refs['article-list']
+    this.articleListRef.onscroll = debounce(() => {
+      this.scrollTop = this.articleListRef.scrollTop
+    }, 50)
+  },
+  activated () {
+    this.articleListRef.scrollTop = this.scrollTop
   },
   methods: {
     async onLoad () {
@@ -49,7 +64,7 @@ export default {
         timestamp: this.timestamp || Date.now(),
         with_top: 1
       }
-      const { data } = await getArticle(params)
+      const { data } = await getArticleList(params)
       const { results } = data
       this.articleList.push(...results)
       this.loading = false
@@ -65,7 +80,7 @@ export default {
         timestamp: Date.now(),
         with_top: 1
       }
-      const { data } = await getArticle(params)
+      const { data } = await getArticleList(params)
       const { results } = data
       this.articleList.unshift(...results)
       this.refreshSuccessText = `更新了${results.length}条数据`

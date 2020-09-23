@@ -4,14 +4,6 @@
 
 <script>
 export default {
-  name: 'QaIndex',
-  data () {
-    return {}
-  },
-  methods: {},
-  components: {}
+  name: 'QaIndex'
 }
 </script>
-
-<style lang="less" scoped>
-</style>

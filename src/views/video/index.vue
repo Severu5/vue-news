@@ -4,14 +4,6 @@
 
 <script>
 export default {
-  name: 'VideoIndex',
-  data () {
-    return {}
-  },
-  methods: {},
-  components: {}
+  name: 'VideoIndex'
 }
 </script>
-
-<style lang="less" scoped>
-</style>

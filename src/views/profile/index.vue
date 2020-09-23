@@ -1,7 +1,14 @@
 <template>
   <div class="profile_container">
-    <van-cell-group v-if="user" class="profile_info">
-      <van-cell class="base_info" :border="false" center>
+    <van-cell-group
+      v-if="user"
+      class="profile_info"
+    >
+      <van-cell
+        class="base_info"
+        :border="false"
+        center
+      >
         <van-image
           class="avatar"
           slot="icon"
@@ -9,41 +16,80 @@
           fit="cover"
           :src="currentUser.photo"
         />
-        <div class="name" slot="title">{{ currentUser.name }}</div>
-        <van-button class="update-btn" size="small" round>编辑资料</van-button>
+        <div
+          class="name"
+          slot="title"
+        >{{ currentUser.name }}</div>
+        <van-button
+          class="update-btn"
+          size="small"
+          round
+          to="/user/profile"
+        >编辑资料</van-button>
       </van-cell>
-      <van-grid class="data_info" :border="false">
+      <van-grid
+        class="data_info"
+        :border="false"
+      >
         <van-grid-item class="data_info_item">
-          <div class="text_wrap" slot="text">
+          <div
+            class="text_wrap"
+            slot="text"
+          >
             <div class="count">{{ currentUser.art_count }}</div>
             <div class="text">头条</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data_info_item">
-          <div class="text_wrap" slot="text">
+          <div
+            class="text_wrap"
+            slot="text"
+          >
             <div class="count">{{ currentUser.follow_count }}</div>
             <div class="text">关注</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data_info_item">
-          <div class="text_wrap" slot="text">
+          <div
+            class="text_wrap"
+            slot="text"
+          >
             <div class="count">{{ currentUser.fans_count }}</div>
             <div class="text">粉丝</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data_info_item">
-          <div class="text_wrap" slot="text">
+          <div
+            class="text_wrap"
+            slot="text"
+          >
             <div class="count">{{ currentUser.like_count }}</div>
             <div class="text">获赞</div>
           </div>
         </van-grid-item>
       </van-grid>
     </van-cell-group>
-    <div v-else class="not_login" @click="$router.push('/login')">
-      <img class="mobile" src="~@/assets/imgs/mobile.png" alt="mobile" />
+    <div
+      v-else
+      class="not_login"
+      @click="$router.push({
+        name: 'login',
+        query: {
+          redirect: '/my'
+        }
+      })"
+    >
+      <img
+        class="mobile"
+        src="~@/assets/imgs/mobile.png"
+        alt="mobile"
+      />
       <div class="text">登录 / 注册</div>
     </div>
-    <van-grid class="nav_grid mb_4" :column-num="2">
+    <van-grid
+      class="nav_grid mb_4"
+      :column-num="2"
+    >
       <van-grid-item
         class="nav_grid_item"
         icon-prefix="icon"
@@ -57,8 +103,17 @@
         text="历史"
       />
     </van-grid>
-    <van-cell title="消息通知" is-link to />
-    <van-cell title="小智同学" class="mb_4" is-link to />
+    <van-cell
+      title="消息通知"
+      is-link
+      to
+    />
+    <van-cell
+      title="小智同学"
+      class="mb_4"
+      is-link
+      to="/user/chat"
+    />
     <van-cell
       v-if="user"
       title="退出登录"

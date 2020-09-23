@@ -4,7 +4,7 @@
       class="app-nav-bar"
       title="注册/登录"
       left-arrow
-      @click-left="$router.back()"
+      @click-left="$router.push($route.query.redirect || '/')"
     />
 
     <van-form
@@ -48,12 +48,15 @@
             round
             :loading="isSendSmsLoading"
             @click.prevent="onSendSms"
-            >发送验证码</van-button
-          >
+          >发送验证码</van-button>
         </template>
       </van-field>
       <div class="login_btn__wrap">
-        <van-button class="login_btn" type="info" block>登录</van-button>
+        <van-button
+          class="login_btn"
+          type="info"
+          block
+        >登录</van-button>
       </div>
     </van-form>
   </div>
@@ -94,8 +97,9 @@ export default {
       try {
         const { data } = await login(params)
         this.$toast.success('登陆成功')
+        this.$store.commit('removeCachePage', 'LayoutIndex')
         this.$store.commit('setUser', data)
-        this.$router.back()
+        this.$router.push(this.$route.query.redirect || '/')
       } catch (err) {
         this.$toast.fail('登陆失败, 手机号或验证码错误')
       }
